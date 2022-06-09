@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using EventManagementSystem.Client.Services.IService;
-using EventManagementSystem.Client.ViewModels;
+using EventManagementSystem.Services.IService;
+using EventManagementSystem.ViewModels;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace EventManagementSystem.Client.Services
+namespace EventManagementSystem.Services
 {
     public class EmployeeService
     {

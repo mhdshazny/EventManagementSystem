@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace EventManagementSystem.Client.Services.IService
+namespace EventManagementSystem.Services.IService
 {
     public abstract class IService<T> where T : class
     {

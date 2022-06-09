@@ -31,11 +31,11 @@
         <div class="card-body">
             @if (ViewBag.InOut == "Up")
             {
-                @await Html.PartialAsync("Edit", new EventManagementSystem.Client.ViewModels.EmployeeViewModel())
+                @await Html.PartialAsync("Edit", new EventManagementSystem.ViewModels.EmployeeViewModel())
             }
             else if (ViewBag.InOut == "In")
             {
-                @await Html.PartialAsync("Create", new EventManagementSystem.Client.ViewModels.EmployeeViewModel())
+                @await Html.PartialAsync("Create", new EventManagementSystem.ViewModels.EmployeeViewModel())
             }
 
         </div>

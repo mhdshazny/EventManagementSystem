@@ -6,7 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace EventManagementSystem.Client.ViewModels
+namespace EventManagementSystem.ViewModels
 {
     public class EventImagesViewModel
     {

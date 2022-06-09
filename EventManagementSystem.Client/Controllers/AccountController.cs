@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using EventManagementSystem.Client.Authentication;
-using EventManagementSystem.Client.Services;
+using EventManagementSystem.Authentication;
+using EventManagementSystem.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace EventManagementSystem.Client.Controllers
+namespace EventManagementSystem.Controllers
 {
     public class AccountController : Controller
     {

@@ -11,7 +11,7 @@ using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.Extensions.Configuration;
 
-namespace EventManagementSystem.Client.Services
+namespace EventManagementSystem.Services
 {
     public class AzureImageUploadService
     {

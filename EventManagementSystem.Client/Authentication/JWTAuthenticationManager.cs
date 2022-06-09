@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
-using EventManagementSystem.Client.Services;
-using EventManagementSystem.Client.ViewModels;
+using EventManagementSystem;
+using EventManagementSystem;
+using EventManagementSystem.Services;
+using EventManagementSystem.ViewModels;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -11,7 +13,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EventManagementSystem.Client.Authentication
+namespace EventManagementSystem.Authentication
 {
     public class JWTAuthenticationManager : IJWTAuthenticationManager
     {

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using EventManagementSystem.Client.Services;
-using EventManagementSystem.Client.ViewModels;
+using EventManagementSystem.Services;
+using EventManagementSystem.ViewModels;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace EventManagementSystem.Client.Controllers
+namespace EventManagementSystem.Controllers
 {
     public class PublicEventsController : Controller
     {

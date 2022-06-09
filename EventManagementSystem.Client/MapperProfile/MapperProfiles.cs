@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
-using EventManagementSystem.Client.ViewModels;
+using EventManagementSystem.ViewModels;
 using Google.Protobuf.WellKnownTypes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace EventManagementSystem.Client.MapperProfile
+namespace EventManagementSystem.MapperProfile
 {
     public class MapperProfiles : Profile
     {

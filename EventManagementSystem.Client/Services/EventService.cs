@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using EventManagementSystem.Client.ViewModels;
+using EventManagementSystem.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -12,7 +12,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace EventManagementSystem.Client.Services
+namespace EventManagementSystem.Services
 {
     public class EventService
     {

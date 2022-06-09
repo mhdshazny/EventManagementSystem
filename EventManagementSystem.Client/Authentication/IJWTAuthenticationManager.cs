@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace EventManagementSystem.Client.Authentication
+namespace EventManagementSystem.Authentication
 {
     public interface IJWTAuthenticationManager
     {

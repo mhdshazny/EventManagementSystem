@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using EventManagementSystem.Client.Authentication;
-using EventManagementSystem.Client.Services;
-using EventManagementSystem.Client.ViewModels;
+using EventManagementSystem.Authentication;
+using EventManagementSystem.Services;
+using EventManagementSystem.ViewModels;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
@@ -13,7 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace EventManagementSystem.Client.Controllers
+namespace EventManagementSystem.Controllers
 {
     public class EventController : Controller
     {

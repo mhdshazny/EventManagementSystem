@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
-using EventManagementSystem.Client.ViewModels;
+using EventManagementSystem;
+using EventManagementSystem.ViewModels;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
@@ -11,7 +12,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace EventManagementSystem.Client.Services
+namespace EventManagementSystem.Services
 {
     public class EventImageService
     {

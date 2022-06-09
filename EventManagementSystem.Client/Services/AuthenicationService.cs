@@ -5,7 +5,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace EventManagementSystem.Client.Services
+namespace EventManagementSystem.Services
 {
     public class AuthenicationService
     {

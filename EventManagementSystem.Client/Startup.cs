@@ -1,5 +1,5 @@
 using AutoMapper;
-using EventManagementSystem.Client.Authentication;
+using EventManagementSystem.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -14,7 +14,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EventManagementSystem.Client
+namespace EventManagementSystem
 {
     public class Startup
     {
