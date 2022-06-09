@@ -1,0 +1,123 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model EventCommentViewModel
+
+@{
+    ViewData["Title"] = "Add Comment";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!-- Breadcrumb -->
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">Inquiry</li>
+    <li class="breadcrumb-item active">Add Comment</li>
+
+    <!-- Breadcrumb Menu-->
+    <li class="breadcrumb-menu d-md-down-none">
+        <div class="btn-group" role="group" aria-label="Button group">
+            <a class="btn" href="#"><i class="icon-speech"></i></a>
+            <a class="btn" href="./"><i class="fa fa-bar-chart"></i> &nbsp;Add Comment</a>
+        </div>
+    </li>
+</ol>
+
+<div class="container-fluid">
+    <h2>Add a Comment to Event : @Model.EventID.EventTitle (@Model.EventID.EventID)</h2>
+    <h5 class="pull-right">@ViewBag.ReturnMsg</h5>
+
+    <hr />
+    <div class="card">
+        <div class="card-body">
+            <h4>Create Employee</h4>
+            <h5 class="pull-right">@ViewBag.ReturnMsg</h5>
+            <hr />
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col">
+                        <form asp-action="Insert" method="post">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            @*<input asp-for="EmpRole" class="form-control" value="Employee" readonly hidden/>*@
+
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label asp-for="EventID" class="control-label"></label>
+                                        <input asp-for="EventID.EventID" hidden class="form-control" readonly value="@Model.EventID.EventID" />
+                                        <input asp-for="EventID.EventTitle" class="form-control" readonly value="@Model.EventID.EventTitle" />
+                                        @*@Html.TextBoxFor(i=>i.EventID, new { @class = "form-control" })*@
+                                        <span asp-validation-for="EventID" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label asp-for="CommentedUser" class="control-label"></label>
+                                        <input asp-for="CommentedUser.ID" hidden class="form-control" readonly value="@Model.CommentedUser.ID" />
+                                        <input asp-for="CommentedUser.fName" class="form-control" readonly value="@Model.CommentedUser.fName" />
+                                        <span asp-validation-for="CommentedUser" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label asp-for="Comment" class="control-label"></label>
+                                        <textarea asp-for="Comment" class="form-control"></textarea>
+                                        <span asp-validation-for="Comment" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label asp-for="Status" class="control-label"></label>
+                                        <input asp-for="Status" class="form-control" readonly />
+
+                                        <span asp-validation-for="Status" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col">
+
+                                </div>
+
+                            </div>
+
+                            <hr />
+
+
+                            <br />
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <input type="reset" value="Cancel" class="btn btn-block btn-info" />
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <input type="submit" value="Upload Comment" class="btn btn-block btn-primary" />
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,171 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model ViewAllCommentViewModel
+@{
+    ViewData["Title"] = "View Comments";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<!-- Breadcrumb -->
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">Inquiry</li>
+    <li class="breadcrumb-item active">View All Comments</li>
+
+    <!-- Breadcrumb Menu-->
+    <li class="breadcrumb-menu d-md-down-none">
+        <div class="btn-group" role="group" aria-label="Button group">
+            <a class="btn" href="#"><i class="icon-speech"></i></a>
+            <a class="btn" href="./"><i class="fa fa-bar-chart"></i> &nbsp;View All Comments</a>
+        </div>
+    </li>
+</ol>
+
+<div class="container-fluid">
+    <h2>Add a Comment to Event : @(@Model.EventID.EventTitle) (@Model.EventID.EventID)</h2>
+    <h5 class="pull-right">@ViewBag.ReturnMsg</h5>
+
+    <hr />
+    <div class="card">
+        <div class="card-body">
+            <h4>Event Details</h4>
+            <h5 class="pull-right">@ViewBag.ReturnMsg</h5>
+            <hr />
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col">
+                        <div class="card">
+
+                            <div class="card-body bg-info text-dark">
+                                <div class="row">
+                                    <div class="col">
+                                        <dl>
+                                            <dt class="col text-dark">
+                                                Reservation ID
+                                            </dt>
+                                            <br />
+                                            <dd class="col">
+                                                @Html.DisplayFor(model => model.EventID.EventID)
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                    <div class="col">
+                                        <dl>
+                                            <dt class="col text-dark">
+                                                Event Title
+                                            </dt>
+                                            <br />
+                                            <dd class="col">
+                                                @Html.DisplayFor(model => model.EventID.EventTitle) &nbsp;&nbsp;
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                    <div class="col">
+                                        <dl>
+                                            <dt class="col text-dark">
+                                                Date
+                                            </dt>
+                                            <br />
+                                            <dd class="col">
+                                                @Html.DisplayFor(model => model.EventID.Date.DateTime)
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                    <div class="col">
+                                        <dl>
+                                            <dt class="col text-dark">
+                                                Event Handled By
+                                            </dt>
+                                            <br />
+                                            <dd class="col">
+                                                @Html.DisplayFor(model => model.EventID.EventRecordHanledBy.fName)  @Html.DisplayFor(model => model.EventID.EventRecordHanledBy.lName)
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                    <div class="col">
+                                        <dl>
+                                            <dt class="col text-dark">
+                                                Reservation Status
+                                            </dt>
+                                            <br />
+                                            <dd class="col">
+                                                @Html.DisplayFor(model => model.EventID.Status)
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                </div>
+                                <hr />
+
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <br />
+                </div>
+                <h4>All Comments</h4>
+
+                <br />
+                <div class="row">
+                    <div class="col">
+                        @if (Model.CommentsList.Count() > 0)
+                        {
+                            @foreach (EventCommentViewModel item in Model.CommentsList)
+                            {
+                                <div class="card">
+                                    <div class="card-body font-weight-bold">
+                                        <div class="row">
+                                            <div class="col-3">
+                                                <dl>
+                                                    <dt class="col text-primary">
+                                                        Commented User
+                                                    </dt>
+                                                    <br />
+                                                    <dd class="col">
+                                                        @item.CommentedUser.fName (@item.CommentedUser.ID)
+                                                    </dd>
+                                                </dl>
+                                            </div>
+                                            <div class="col-9 border-bottom-danger">
+                                                <dl>
+                                                    <dt class="col text-primary">
+                                                        Comment
+                                                    </dt>
+                                                    <br />
+                                                    <dd class="col">
+                                                        @item.Comment
+                                                    </dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            }
+
+                        }
+                        else
+                        {
+                            <hr />
+                            <h6>No Comments Found</h6>
+
+                        }
+
+                    </div>
+                    <br />
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+</div>

@@ -1,0 +1,187 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model EmployeeDetailsViewModel
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+    DateTime DateOfBirth = new DateTime(
+        year: Model.EmployeeVM.DoB.Year,
+        month: Model.EmployeeVM.DoB.Month,
+        day: Model.EmployeeVM.DoB.Day
+        );
+}
+
+<div class="container-fluid mt-5">
+    <div class="col">
+        <div class="row">
+            <div class="card">
+                <div class="container-fluid">
+                    <h4 class="mt-2">EmployeeModel</h4>
+                    <hr />
+                    <div class="col">
+                        <dl class="row">
+                            <dt class="col-sm-4">
+                                @Html.DisplayNameFor(model => model.EmployeeVM.fName)
+                            </dt>
+                            <dd class="col-sm-8">
+                                @Html.DisplayFor(model => model.EmployeeVM.fName)
+                            </dd>
+                            <dt class="col-sm-4">
+                                @Html.DisplayNameFor(model => model.EmployeeVM.lName)
+                            </dt>
+                            <dd class="col-sm-8">
+                                @Html.DisplayFor(model => model.EmployeeVM.lName)
+                            </dd>
+                            <dt class="col-sm-4">
+                                @Html.DisplayNameFor(model => model.EmployeeVM.Gender)
+                            </dt>
+                            <dd class="col-sm-8">
+                                @Html.DisplayFor(model => model.EmployeeVM.Gender)
+                            </dd>
+                            <dt class="col-sm-4">
+                                @Html.DisplayNameFor(model => model.EmployeeVM.DoB)
+                            </dt>
+                            <dd class="col-sm-8">
+                                @Html.Raw(DateOfBirth.ToShortDateString())
+                            </dd>
+                            <dt class="col-sm-4">
+                                @Html.DisplayNameFor(model => model.EmployeeVM.NIC)
+                            </dt>
+                            <dd class="col-sm-8">
+                                @Html.DisplayFor(model => model.EmployeeVM.NIC)
+                            </dd>
+                            <dt class="col-sm-4">
+                                @Html.DisplayNameFor(model => model.EmployeeVM.Email)
+                            </dt>
+                            <dd class="col-sm-8">
+                                @Html.DisplayFor(model => model.EmployeeVM.Email)
+                            </dd>
+                            <dt class="col-sm-4">
+                                @Html.DisplayNameFor(model => model.EmployeeVM.Address)
+                            </dt>
+                            <dd class="col-sm-8">
+                                @Html.DisplayFor(model => model.EmployeeVM.Address)
+                            </dd>
+                            <dt class="col-sm-4">
+                                @Html.DisplayNameFor(model => model.EmployeeVM.Contact)
+                            </dt>
+                            <dd class="col-sm-8">
+                                @Html.DisplayFor(model => model.EmployeeVM.Contact)
+                            </dd>
+                            <dt class="col-sm-4">
+                                @Html.DisplayNameFor(model => model.EmployeeVM.EmpRole)
+                            </dt>
+                            <dd class="col-sm-8">
+                                @Html.DisplayFor(model => model.EmployeeVM.EmpRole)
+                            </dd>
+                            <dt class="col-sm-4">
+                                @Html.DisplayNameFor(model => model.EmployeeVM.Status)
+                            </dt>
+                            <dd class="col-sm-8">
+                                @Html.DisplayFor(model => model.EmployeeVM.Status)
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="card">
+                <div class="container-fluid">
+                    <h4>All Inquiries</h4>
+                    <hr />
+                    <div class="col">
+
+                        <div class="row">
+                            <table class="table table-responsive" id="IndexTable">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Event ID
+                                        </th>
+                                        <th>
+                                            Event Title
+                                        </th>
+                                        <th>
+                                            Date
+                                        </th>
+                                        <th>
+                                            Duration
+                                        </th>
+                                        <th>
+                                            Publisher
+                                        </th>
+                                        <th>
+                                            Description
+                                        </th>
+                                        <th>
+                                            Location
+                                        </th>
+                                        <th>
+                                            Visibility
+                                        </th>
+                                        <th>
+                                            Status
+                                        </th>
+                                        <th class="text-danger">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.EventVMList)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.EventID)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.EventTitle)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Date)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Duration)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Publisher)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Description)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Location)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Visibility)
+                                            </td>
+                                            @*<td>
+                            @Html.DisplayFor(modelItem => item.EventRecordHanledBy.fName)
+                        </td>*@
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Status)
+                                            </td>
+                                            <td>
+
+                            <a asp-action="Edit" asp-route-id="@item.EventID"><i class="fa fa-edit fa-lg"></i></a> |
+                            <a asp-action="Details" asp-route-id="@item.EventID"><i class="fa fa-info fa-lg"></i></a>
+
+                            @*@if (@HttpContextAccessor.HttpContext.Session.GetString("UserType") == "System Administrator")
+                            {*@
+
+                                <a href="#" onclick="ConfirmDelete('@item.EventID')">|<i class="fa fa-remove fa-lg"></i></a>
+                            @*}*@
+                        </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

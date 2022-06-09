@@ -1,0 +1,298 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model EventViewModel
+@{
+    EventViewModel eventData = ViewBag.EventData;
+}
+<style>
+
+
+    .image-area {
+        position: relative;
+        width: 50%;
+    }
+
+        .image-area img {
+            max-width: 100%;
+            height: auto;
+        }
+
+    .remove-image {
+        display: none;
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        border-radius: 10em;
+        padding: 2px 6px 3px;
+        text-decoration: none;
+        font: 700 21px/20px sans-serif;
+        background: #555;
+        border: 3px solid #fff;
+        color: #FFF;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 2px 4px rgba(0,0,0,0.3);
+        text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+        -webkit-transition: background 0.5s;
+        transition: background 0.5s;
+    }
+
+        .remove-image:hover {
+            background: #E54E4E;
+            padding: 3px 7px 5px;
+            top: -11px;
+            right: -11px;
+        }
+
+        .remove-image:active {
+            background: #E54E4E;
+            top: -10px;
+            right: -11px;
+        }
+</style>
+
+<h4>Update Event</h4>
+<h5 class="pull-right">@ViewBag.ReturnMsg</h5>
+<hr />
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <form asp-action="Update" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label asp-for="EventID" class="control-label"></label>
+                            <input asp-for="EventID" name="EventID" id="EventID" class="form-control" readonly />
+                            <span asp-validation-for="EventID" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label asp-for="EventTitle" class="control-label"></label>
+                            <input asp-for="EventTitle" class="form-control" />
+                            <span asp-validation-for="EventTitle" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label asp-for="Publisher" class="control-label"></label>
+                            <input asp-for="Publisher" class="form-control" />
+                            <span asp-validation-for="Publisher" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label asp-for="Description" class="control-label"></label>
+                            <textarea asp-for="Description" class="form-control"></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label asp-for="Duration" class="control-label"></label>
+                            <input asp-for="Duration" min="1" class="form-control" />
+                            <span asp-validation-for="Duration" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label asp-for="Location" class="control-label"></label>
+                            <input asp-for="Location" class="form-control" />
+                            <span asp-validation-for="Location" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label asp-for="Date" class="control-label"></label>
+                            <input asp-for="Date" type="date" class="form-control" />
+                            <span asp-validation-for="Date" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col">
+
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="control-label">Event Handler (Employee ID)</label>
+                            <input asp-for="EventRecordHanledBy.ID" class="form-control"/>
+                            <span asp-validation-for="EventRecordHanledBy.ID" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label asp-for="Visibility" class="control-label"></label>
+                            <select asp-for="Visibility" class="form-control">
+                                <option value="Public">Public</option>
+                                <option value="Private">Private</option>
+                            </select>
+                            <span asp-validation-for="Visibility" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label asp-for="Status" class="control-label"></label>
+                            <select asp-for="Status" class="form-control">
+                                <option value="Pending">Pending</option>
+                                <option value="Completed">Completed</option>
+                            </select>
+                            <span asp-validation-for="Status" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col">
+
+                    </div>
+
+                </div>
+
+                <hr />
+
+
+
+                <div class="row">
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label asp-for="ImageNameList" class="control-label"></label>
+                            <br />
+                            <br />
+                            @if (ViewBag.IsImagesAvailable)
+                            {
+                                if (ViewBag.ImageData.Count > 0 || ViewBag.ImageData != null)
+                                {
+                                    <div class="row"  >
+
+                                        @foreach (string images in ViewBag.ImageData)
+                                        {
+                                            <div id="@images">
+                                                <div class="col-md-2 mr-0">
+                                                    <img src="https://shaznyteststorage.blob.core.windows.net/eventimages/@ViewBag.EventID/@images" class="rounded size-10 float-left  image-area" alt="..." style="width: 200px; height: 200px;">
+                                                    @*<img src="~/Images/@ViewBag.EventID/@images" class="rounded size-10 float-left  image-area" alt="..." style="width: 200px; height: 200px;">*@
+
+                                                    @*<a class="remove-image fa fa-remove fa-lg" href="#" style="display: inline;"></a>*@
+                                                </div>
+                                                <a href="#" onclick="ConfirmDeleteImage('@images')" style="display: inline;margin-left:0px;"><i class="fa fa-remove fa-lg ml-0"></i></a>
+                                            </div>
+
+                                        }
+                                    </div>
+
+
+                                }
+                                else
+                                {
+                                    <br />
+                                    <h5>No Images Found</h5>
+                                }
+                            }
+
+                            else
+                            {
+                                <br />
+                                <h5>No Images Found</h5>
+                            }
+                        </div>
+
+                    </div>
+                </div>
+                <hr />
+
+
+
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <input type="reset" value="Cancel" class="btn btn-block btn-info" />
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <input type="submit" value="Update" class="btn btn-block btn-primary" />
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+<script>
+
+    function ConfirmDeleteImage(e) {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-danger m-2',
+                cancelButton: 'btn btn-info m-2'
+            },
+            buttonsStyling: false
+        })
+
+        swalWithBootstrapButtons.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: "POST",
+                    url: "/Event/DeleteImage",
+                    data: { id: e , EventID: '@ViewBag.EventID' },
+                    success: function (result) {
+                        if (result == "Success") {
+                            swalWithBootstrapButtons.fire(
+                                'Success',
+                                'Your Data is Deleted :)',
+                                'Success'
+                            ).then((res) => {
+                                if (res.isConfirmed) {
+                                    const element = document.getElementById(e);
+                                    element.remove();
+                                }
+                            })
+                        }
+                        else {
+                            swalWithBootstrapButtons.fire(
+                                'Error',
+                                'This record has several dependencies.This Cannot be DELETED.Your Data is safe :)',
+                                'error'
+                            )
+                        }
+                    }
+                })
+
+            }
+            else if (
+                /* Read more about handling dismissals below */
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                //swalWithBootstrapButtons.fire(
+                //    'Cancelled',
+                //    'Your data is safe :)',
+                //    'error'
+                //)
+            }
+        })
+    }
+</script>

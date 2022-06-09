@@ -1,0 +1,226 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model IEnumerable<EventViewModel>
+@{
+
+}
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!-- Breadcrumb -->
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">Inquiry</li>
+    <li class="breadcrumb-item active">Manage Events</li>
+
+    <!-- Breadcrumb Menu-->
+    <li class="breadcrumb-menu d-md-down-none">
+        <div class="btn-group" role="group" aria-label="Button group">
+            <a class="btn" href="#"><i class="icon-speech"></i></a>
+            <a class="btn" href="./"><i class="fa fa-bar-chart"></i> &nbsp;Manage Events</a>
+        </div>
+    </li>
+</ol>
+
+<div class="container-fluid">
+    <h2>Manage Events</h2>
+    <h5 class="pull-right">@ViewBag.ReturnMsg</h5>
+
+    <hr />
+    <div class="card">
+        <div class="card-body">
+            @if (ViewBag.InOut == "Up")
+            {
+                @await Html.PartialAsync("Edit", new EventManagementSystem.Client.ViewModels.EventViewModel())
+            }
+            else if (ViewBag.InOut == "In")
+            {
+                @await Html.PartialAsync("Create", new EventManagementSystem.Client.ViewModels.EventViewModel())
+            }
+
+        </div>
+    </div>
+
+
+    <hr />
+
+    <div class="card">
+        <div class="card-body">
+            <h4>All Events</h4><hr />
+
+            <table class="table table-responsive" id="IndexTable">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.EventID)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.EventTitle)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Publisher)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Description)
+                        </th>
+                        @*<th>
+                            Images
+                        </th>*@
+                        <th>
+                            @Html.DisplayNameFor(model => model.Date)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Duration)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Location)
+                        </th>
+                        <th>
+                            Event Handler
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Visibility)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Status)
+                        </th>
+                        <th class="text-danger">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EventID)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EventTitle)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Publisher)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </td>
+                            <!--<td>
+                                <div class="text-center">-->
+                                    @*@foreach (var images in item.ImageNameList)
+        {*@
+                                    @*@Html.DisplayFor(modelItem => images)*@
+
+                                    @*<img src="~/Images/@item.EventID/@images"
+        class="square"
+        height="60" width="60" />*@
+
+                                    @* } *@
+                                <!--</div>
+
+                            </td>-->
+                            <td>
+                                @item.Date.ToString("yyyy/MMM/dd")
+                                </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Duration)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Location)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EventRecordHanledBy.fName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Visibility)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Status)
+                            </td>
+                            <td>
+
+                                <a asp-action="Edit" asp-route-id="@item.EventID"><i class="fa fa-edit fa-lg"></i></a> |
+                                <a asp-action="Details" asp-route-id="@item.EventID"><i class="fa fa-info fa-lg"></i></a>
+
+                                @*@if (@HttpContextAccessor.HttpContext.Session.GetString("UserType") == "System Administrator")
+                                    {*@
+
+                                <a href="#" onclick="ConfirmDelete('@item.EventID')">|<i class="fa fa-remove fa-lg"></i></a>
+                                @* } *@
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    function ConfirmDelete(e) {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-danger m-2',
+                cancelButton: 'btn btn-info m-2'
+            },
+            buttonsStyling: false
+        })
+
+        swalWithBootstrapButtons.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: "POST",
+                    url: "/Event/Delete",
+                    data: { id: e },
+                    success: function (result) {
+                        if (result == "Success") {
+                            swalWithBootstrapButtons.fire(
+                                'Success',
+                                'Your Data is Deleted :)',
+                                'Success'
+                            ).then((res) => {
+                                if (res.isConfirmed) {
+                                    location.reload();
+                                }
+                            })
+                        }
+                        else {
+                            swalWithBootstrapButtons.fire(
+                                'Error',
+                                'This record has several dependencies.This Cannot be DELETED.Your Data is safe :)',
+                                'error'
+                            )
+                        }
+                    }
+                })
+
+            }
+            else if (
+                /* Read more about handling dismissals below */
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                //swalWithBootstrapButtons.fire(
+                //    'Cancelled',
+                //    'Your data is safe :)',
+                //    'error'
+                //)
+            }
+        })
+    }
+</script>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

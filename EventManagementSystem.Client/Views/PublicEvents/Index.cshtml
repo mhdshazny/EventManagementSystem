@@ -1,0 +1,327 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model IEnumerable<EventViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<!-- Breadcrumb -->
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">Dashboard</li>
+    <li class="breadcrumb-item active">All Public Events</li>
+
+    <!-- Breadcrumb Menu-->
+    <li class="breadcrumb-menu d-md-down-none">
+        <div class="btn-group" role="group" aria-label="Button group">
+            <a class="btn" href="#"><i class="icon-speech"></i></a>
+            <a class="btn" href="./"><i class="fa fa-bar-chart"></i> &nbsp;Public Events</a>
+        </div>
+    </li>
+</ol>
+
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <h1 class="head ml-3">All Public Events</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+
+
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-c-green text-dark">
+                <div class="card-block">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <p class="m-b-5 font-weight-bold">Total Events</p>
+                            <h4 class="m-b-0 text-center">@Model.Count()</h4>
+
+                        </div>
+                        <div class="col col-auto text-right">
+                            <i class="fas fa-clipboard-list fa-5x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-info text-dark">
+                <div class="card-block">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <p class="m-b-5 font-weight-bold">Total Completed Events</p>
+                            <h4 class="m-b-0 text-center"> @Model.Count(i => i.Status == "Completed")</h4>
+                        </div>
+                        <div class="col col-auto text-right">
+                            <i class="fa fa-check-circle fa-5x"></i>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-danger text-dark">
+                <div class="card-block">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <p class="m-b-5 font-weight-bold">Total Pending Events</p>
+                            <h4 class="m-b-0 text-center"> @Model.Count(i => i.Status == "Pending")</h4>
+                        </div>
+                        <div class="col col-auto text-right">
+                            <i class="fa fa-users fa-5x"></i>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-c-blue text-dark">
+                <div class="card-block">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <p class="m-b-5 font-weight-bold">Total Users</p>
+                            <h4 class="m-b-0 text-center"> @Model.Count(i => i.Status == "Pending")</h4>
+                        </div>
+                        <div class="col col-auto text-right">
+                            <i class="fas fa-users fa-5x"></i>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="card-body bg-white">
+                <h4 class="m-4">Pending Events</h4>
+                <table class="table table-responsive" id="IndexTable">
+                    <thead class="">
+                        <tr>
+                            <td>
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (EventViewModel item in Model.Where(i => i.Status == "Pending"))
+                        {
+                            <tr>
+                                <td>
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col">
+                                                <table class="table table-responsive bg-info">
+                                                    <thead class="bg-dark text-light">
+                                                        <tr>
+                                                            <th>
+                                                                <div class="col text-center">
+                                                                    <h5> @item.EventTitle : (@item.Location)</h5>
+                                                                </div>
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                        <tr>
+
+                                                            <td>
+                                                                <div class="container-fluid">
+                                                                    <div class="row font-weight-bold text-dark">
+                                                                        <div class="col">
+                                                                            Date : @item.Date.DateTime <br />
+                                                                            Duration : @item.Duration
+                                                                        </div>
+                                                                        <div class="col">
+                                                                            Description : @item.Description
+                                                                        </div>
+                                                                        <div class="col">
+                                                                            Publisher : @item.Publisher
+                                                                        </div>
+                                                                        <div class="col">
+                                                                            Status : @item.Status
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row ">
+                                                                        <div class="col-3"><a type="button" name="AddComment" asp-action="AddComment" asp-route-EventId="@item.EventID" class="btn btn-primary font-weight-bold text-dark btn-block">Add Comment</a></div>
+                                                                        <div class="col-4"><a type="button" name="AllComments" asp-action="ViewComments" asp-route-EventId="@item.EventID" class="btn btn-success font-weight-bold text-dark btn-block">View All Comments</a></div>
+                                                                        <div class="col-3"><input type="button" onclick="ConfirmCloseEvent('@item.EventID')" name="CompleteEvent" class="btn btn-dark font-weight-bold btn-block" value="Complete Event" /></div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+
+
+                        }
+
+                    </tbody>
+                </table>
+
+
+            </div>
+
+            <hr />
+
+            <div class="card-body bg-white">
+                <h4 class="m-4">Completed Events</h4>
+                <table class="table table-responsive" id="IndexTable2">
+                    <thead class="">
+                        <tr>
+                            <td>
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (EventViewModel item in Model.Where(i => i.Status != "Pending"))
+                        {
+                            <tr>
+                                <td>
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col">
+                                                <table class="table table-responsive bg-danger">
+                                                    <thead class="bg-dark text-light">
+                                                        <tr>
+                                                            <th>
+                                                                <div class="col text-center">
+                                                                    <h5> @item.EventTitle : (@item.Location)</h5>
+                                                                </div>
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                        <tr>
+
+                                                            <td>
+                                                                <div class="container-fluid">
+                                                                    <div class="row font-weight-bold text-dark">
+                                                                        <div class="col">
+                                                                            Date : @item.Date.DateTime <br />
+                                                                            Duration : @item.Duration
+                                                                        </div>
+                                                                        <div class="col">
+                                                                            Description : @item.Description
+                                                                        </div>
+                                                                        <div class="col">
+                                                                            Publisher : @item.Publisher
+                                                                        </div>
+                                                                        <div class="col">
+                                                                            Status : @item.Status
+                                                                        </div>
+                                                                    </div>
+                                                                    <hr />
+                                                                    <div class="row">
+                                                                        <div class="col-3"></div>
+                                                                        <div class="col"><a asp-action="ViewComments" asp-route-EventId="@item.EventID" name="ViewComment" class="btn btn-dark btn-block">View Comments</a></div>
+                                                                        <div class="col-3"></div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+
+
+                        }
+
+                    </tbody>
+                </table>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+
+    //$(document).ready(function () {
+    //    table.dataTable.no - footer {
+    //        border - bottom: 0!important;
+    //    }.
+    //});
+
+    function ConfirmCloseEvent(e) {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-danger m-2',
+                cancelButton: 'btn btn-info m-2'
+            },
+            buttonsStyling: false
+        })
+
+        swalWithBootstrapButtons.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, Close Event!',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: "POST",
+                    url: "/Event/CloseEvent",
+                    data: { id: e },
+                    success: function (result) {
+                        if (result == "Success") {
+                            swalWithBootstrapButtons.fire(
+                                'Success',
+                                'This event is closed as completed:)',
+                                'Success'
+                            ).then((res) => {
+                                if (res.isConfirmed) {
+                                    location.reload();
+                                }
+                            })
+                        }
+                        else {
+                            swalWithBootstrapButtons.fire(
+                                'Error',
+                                'This event could not be closed as completed, Your data is SAFE  :)',
+                                'error'
+                            )
+                        }
+                    }
+                })
+
+            }
+            else if (
+                /* Read more about handling dismissals below */
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                //swalWithBootstrapButtons.fire(
+                //    'Cancelled',
+                //    'Your data is safe :)',
+                //    'error'
+                //)
+            }
+        })
+    }
+</script>
